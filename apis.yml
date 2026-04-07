@@ -6,8 +6,8 @@ description: >-
 type: Index
 image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
 tags:
-  - Scraping
   - Data Extraction
+  - Scraping
   - Visual Scraping
 url: >-
   https://raw.githubusercontent.com/api-evangelist/parsehub/refs/heads/main/apis.yml
@@ -22,8 +22,8 @@ apis:
       with a point-and-click interface for data extraction.
     humanURL: https://www.parsehub.com/
     tags:
-      - Scraping
       - Data Extraction
+      - Scraping
       - Visual Scraping
     properties:
       - type: Documentation
