@@ -1,24 +1,23 @@
 naftiko: 1.0.0-alpha2
 info:
   label: ParseHub API
-  description: ParseHub is a visual web scraping tool. The v2 API allows you to start runs, check run status, retrieve scraped
-    data, and manage projects and runs.
+  description: 'ParseHub API. 8 operations. Lead operation: List projects. Self-contained Naftiko capability covering one
+    Parsehub business surface.'
   tags:
   - Parsehub
-  - API
-  created: '2026-05-06'
-  modified: '2026-05-06'
+  - ParseHub API
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    PARSEHUB_API_KEY: PARSEHUB_API_KEY
 capability:
   consumes:
   - type: http
     namespace: parsehub
     baseUri: https://www.parsehub.com/api/v2
-    description: ParseHub API HTTP API.
-    authentication:
-      type: apikey
-      in: query
-      name: api_key
-      value: '{{PARSEHUB_TOKEN}}'
+    description: ParseHub API business capability. Self-contained, no shared references.
     resources:
     - name: projects
       path: /projects
@@ -26,6 +25,11 @@ capability:
       - name: listprojects
         method: GET
         description: List projects
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
         inputParameters:
         - name: api_key
           in: query
@@ -40,17 +44,17 @@ capability:
         - name: include_options
           in: query
           type: integer
-        outputRawFormat: json
-        outputParameters:
-        - name: result
-          type: object
-          value: $.
-    - name: projects-project-token
+    - name: projects-project_token
       path: /projects/{project_token}
       operations:
       - name: getproject
         method: GET
         description: Get a project
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
         inputParameters:
         - name: project_token
           in: path
@@ -63,33 +67,17 @@ capability:
         - name: offset
           in: query
           type: integer
-        outputRawFormat: json
-        outputParameters:
-        - name: result
-          type: object
-          value: $.
-    - name: projects-project-token-run
-      path: /projects/{project_token}/run
-      operations:
-      - name: startrun
-        method: POST
-        description: Start a run
-        inputParameters:
-        - name: project_token
-          in: path
-          type: string
-          required: true
-        outputRawFormat: json
-        outputParameters:
-        - name: result
-          type: object
-          value: $.
-    - name: projects-project-token-last-ready-run-data
+    - name: projects-project_token-last_ready_run-data
       path: /projects/{project_token}/last_ready_run/data
       operations:
       - name: getlastreadyrundata
         method: GET
         description: Get data for the last ready run
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
         inputParameters:
         - name: project_token
           in: path
@@ -102,17 +90,38 @@ capability:
         - name: format
           in: query
           type: string
+    - name: projects-project_token-run
+      path: /projects/{project_token}/run
+      operations:
+      - name: startrun
+        method: POST
+        description: Start a run
         outputRawFormat: json
         outputParameters:
         - name: result
           type: object
           value: $.
-    - name: runs-run-token
+        inputParameters:
+        - name: project_token
+          in: path
+          type: string
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: runs-run_token
       path: /runs/{run_token}
       operations:
       - name: getrun
         method: GET
         description: Get a run
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
         inputParameters:
         - name: run_token
           in: path
@@ -122,14 +131,14 @@ capability:
           in: query
           type: string
           required: true
-        outputRawFormat: json
-        outputParameters:
-        - name: result
-          type: object
-          value: $.
       - name: deleterun
         method: DELETE
         description: Delete a run
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
         inputParameters:
         - name: run_token
           in: path
@@ -139,17 +148,38 @@ capability:
           in: query
           type: string
           required: true
+    - name: runs-run_token-cancel
+      path: /runs/{run_token}/cancel
+      operations:
+      - name: cancelrun
+        method: POST
+        description: Cancel a run
         outputRawFormat: json
         outputParameters:
         - name: result
           type: object
           value: $.
-    - name: runs-run-token-data
+        inputParameters:
+        - name: run_token
+          in: path
+          type: string
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: runs-run_token-data
       path: /runs/{run_token}/data
       operations:
       - name: getrundata
         method: GET
         description: Get run data
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
         inputParameters:
         - name: run_token
           in: path
@@ -162,45 +192,36 @@ capability:
         - name: format
           in: query
           type: string
-        outputRawFormat: json
-        outputParameters:
-        - name: result
-          type: object
-          value: $.
-    - name: runs-run-token-cancel
-      path: /runs/{run_token}/cancel
-      operations:
-      - name: cancelrun
-        method: POST
-        description: Cancel a run
-        inputParameters:
-        - name: run_token
-          in: path
-          type: string
-          required: true
-        outputRawFormat: json
-        outputParameters:
-        - name: result
-          type: object
-          value: $.
+    authentication:
+      type: apikey
+      key: api_key
+      value: '{{env.PARSEHUB_API_KEY}}'
+      placement: query
   exposes:
   - type: rest
-    port: 8080
     namespace: parsehub-rest
-    description: REST adapter for ParseHub API.
+    port: 8080
+    description: REST adapter for ParseHub API. One Spectral-compliant resource per consumed operation, prefixed with /v1.
     resources:
-    - path: /projects
-      name: listprojects
+    - path: /v1/projects
+      name: projects
+      description: REST surface for projects.
       operations:
       - method: GET
         name: listprojects
         description: List projects
         call: parsehub.listprojects
+        with:
+          api_key: rest.api_key
+          offset: rest.offset
+          limit: rest.limit
+          include_options: rest.include_options
         outputParameters:
         - type: object
           mapping: $.
-    - path: /projects/{project_token}
-      name: getproject
+    - path: /v1/projects/{project-token}
+      name: projects-project-token
+      description: REST surface for projects-project_token.
       operations:
       - method: GET
         name: getproject
@@ -208,23 +229,14 @@ capability:
         call: parsehub.getproject
         with:
           project_token: rest.project_token
+          api_key: rest.api_key
+          offset: rest.offset
         outputParameters:
         - type: object
           mapping: $.
-    - path: /projects/{project_token}/run
-      name: startrun
-      operations:
-      - method: POST
-        name: startrun
-        description: Start a run
-        call: parsehub.startrun
-        with:
-          project_token: rest.project_token
-        outputParameters:
-        - type: object
-          mapping: $.
-    - path: /projects/{project_token}/last_ready_run/data
-      name: getlastreadyrundata
+    - path: /v1/projects/{project-token}/last-ready-run/data
+      name: projects-project-token-last-ready-run-data
+      description: REST surface for projects-project_token-last_ready_run-data.
       operations:
       - method: GET
         name: getlastreadyrundata
@@ -232,11 +244,28 @@ capability:
         call: parsehub.getlastreadyrundata
         with:
           project_token: rest.project_token
+          api_key: rest.api_key
+          format: rest.format
         outputParameters:
         - type: object
           mapping: $.
-    - path: /runs/{run_token}
-      name: getrun
+    - path: /v1/projects/{project-token}/run
+      name: projects-project-token-run
+      description: REST surface for projects-project_token-run.
+      operations:
+      - method: POST
+        name: startrun
+        description: Start a run
+        call: parsehub.startrun
+        with:
+          project_token: rest.project_token
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/runs/{run-token}
+      name: runs-run-token
+      description: REST surface for runs-run_token.
       operations:
       - method: GET
         name: getrun
@@ -244,35 +273,23 @@ capability:
         call: parsehub.getrun
         with:
           run_token: rest.run_token
+          api_key: rest.api_key
         outputParameters:
         - type: object
           mapping: $.
-    - path: /runs/{run_token}
-      name: deleterun
-      operations:
       - method: DELETE
         name: deleterun
         description: Delete a run
         call: parsehub.deleterun
         with:
           run_token: rest.run_token
+          api_key: rest.api_key
         outputParameters:
         - type: object
           mapping: $.
-    - path: /runs/{run_token}/data
-      name: getrundata
-      operations:
-      - method: GET
-        name: getrundata
-        description: Get run data
-        call: parsehub.getrundata
-        with:
-          run_token: rest.run_token
-        outputParameters:
-        - type: object
-          mapping: $.
-    - path: /runs/{run_token}/cancel
-      name: cancelrun
+    - path: /v1/runs/{run-token}/cancel
+      name: runs-run-token-cancel
+      description: REST surface for runs-run_token-cancel.
       operations:
       - method: POST
         name: cancelrun
@@ -280,16 +297,33 @@ capability:
         call: parsehub.cancelrun
         with:
           run_token: rest.run_token
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/runs/{run-token}/data
+      name: runs-run-token-data
+      description: REST surface for runs-run_token-data.
+      operations:
+      - method: GET
+        name: getrundata
+        description: Get run data
+        call: parsehub.getrundata
+        with:
+          run_token: rest.run_token
+          api_key: rest.api_key
+          format: rest.format
         outputParameters:
         - type: object
           mapping: $.
   - type: mcp
-    port: 9090
     namespace: parsehub-mcp
+    port: 9090
     transport: http
-    description: MCP adapter for ParseHub API for AI agent use.
+    description: MCP adapter for ParseHub API. One tool per consumed operation, routed inline through this capability's consumes
+      block.
     tools:
-    - name: listprojects
+    - name: list-projects
       description: List projects
       hints:
         readOnly: true
@@ -301,24 +335,10 @@ capability:
         offset: tools.offset
         limit: tools.limit
         include_options: tools.include_options
-      inputParameters:
-      - name: api_key
-        type: string
-        description: api_key
-        required: true
-      - name: offset
-        type: integer
-        description: offset
-      - name: limit
-        type: integer
-        description: limit
-      - name: include_options
-        type: integer
-        description: include_options
       outputParameters:
       - type: object
         mapping: $.
-    - name: getproject
+    - name: get-project
       description: Get a project
       hints:
         readOnly: true
@@ -329,39 +349,10 @@ capability:
         project_token: tools.project_token
         api_key: tools.api_key
         offset: tools.offset
-      inputParameters:
-      - name: project_token
-        type: string
-        description: project_token
-        required: true
-      - name: api_key
-        type: string
-        description: api_key
-        required: true
-      - name: offset
-        type: integer
-        description: offset
       outputParameters:
       - type: object
         mapping: $.
-    - name: startrun
-      description: Start a run
-      hints:
-        readOnly: false
-        destructive: false
-        idempotent: false
-      call: parsehub.startrun
-      with:
-        project_token: tools.project_token
-      inputParameters:
-      - name: project_token
-        type: string
-        description: project_token
-        required: true
-      outputParameters:
-      - type: object
-        mapping: $.
-    - name: getlastreadyrundata
+    - name: get-data-last-ready-run
       description: Get data for the last ready run
       hints:
         readOnly: true
@@ -372,22 +363,23 @@ capability:
         project_token: tools.project_token
         api_key: tools.api_key
         format: tools.format
-      inputParameters:
-      - name: project_token
-        type: string
-        description: project_token
-        required: true
-      - name: api_key
-        type: string
-        description: api_key
-        required: true
-      - name: format
-        type: string
-        description: format
       outputParameters:
       - type: object
         mapping: $.
-    - name: getrun
+    - name: start-run
+      description: Start a run
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: parsehub.startrun
+      with:
+        project_token: tools.project_token
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-run
       description: Get a run
       hints:
         readOnly: true
@@ -397,19 +389,10 @@ capability:
       with:
         run_token: tools.run_token
         api_key: tools.api_key
-      inputParameters:
-      - name: run_token
-        type: string
-        description: run_token
-        required: true
-      - name: api_key
-        type: string
-        description: api_key
-        required: true
       outputParameters:
       - type: object
         mapping: $.
-    - name: deleterun
+    - name: delete-run
       description: Delete a run
       hints:
         readOnly: false
@@ -419,19 +402,23 @@ capability:
       with:
         run_token: tools.run_token
         api_key: tools.api_key
-      inputParameters:
-      - name: run_token
-        type: string
-        description: run_token
-        required: true
-      - name: api_key
-        type: string
-        description: api_key
-        required: true
       outputParameters:
       - type: object
         mapping: $.
-    - name: getrundata
+    - name: cancel-run
+      description: Cancel a run
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: parsehub.cancelrun
+      with:
+        run_token: tools.run_token
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-run-data
       description: Get run data
       hints:
         readOnly: true
@@ -442,39 +429,6 @@ capability:
         run_token: tools.run_token
         api_key: tools.api_key
         format: tools.format
-      inputParameters:
-      - name: run_token
-        type: string
-        description: run_token
-        required: true
-      - name: api_key
-        type: string
-        description: api_key
-        required: true
-      - name: format
-        type: string
-        description: format
       outputParameters:
       - type: object
         mapping: $.
-    - name: cancelrun
-      description: Cancel a run
-      hints:
-        readOnly: false
-        destructive: false
-        idempotent: false
-      call: parsehub.cancelrun
-      with:
-        run_token: tools.run_token
-      inputParameters:
-      - name: run_token
-        type: string
-        description: run_token
-        required: true
-      outputParameters:
-      - type: object
-        mapping: $.
-binds:
-- namespace: env
-  keys:
-    PARSEHUB_TOKEN: PARSEHUB_TOKEN
