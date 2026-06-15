@@ -1,0 +1,251 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "ParseHub API",
+    "version": "2.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "api_key",
+      "value": "{{api_key}}",
+      "placement": "query"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "List projects",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://www.parsehub.com/api/v2/projects",
+        "params": [
+          {
+            "name": "api_key",
+            "value": "",
+            "type": "query"
+          },
+          {
+            "name": "offset",
+            "value": "",
+            "type": "query"
+          },
+          {
+            "name": "limit",
+            "value": "",
+            "type": "query"
+          },
+          {
+            "name": "include_options",
+            "value": "",
+            "type": "query"
+          }
+        ]
+      },
+      "docs": "Returns a paginated list of projects in the user account."
+    },
+    {
+      "info": {
+        "name": "Get a project",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://www.parsehub.com/api/v2/projects/:project_token",
+        "params": [
+          {
+            "name": "project_token",
+            "value": "",
+            "type": "path"
+          },
+          {
+            "name": "api_key",
+            "value": "",
+            "type": "query"
+          },
+          {
+            "name": "offset",
+            "value": "",
+            "type": "query"
+          }
+        ]
+      },
+      "docs": "Get a project"
+    },
+    {
+      "info": {
+        "name": "Start a run",
+        "type": "http"
+      },
+      "http": {
+        "method": "POST",
+        "url": "https://www.parsehub.com/api/v2/projects/:project_token/run",
+        "params": [
+          {
+            "name": "project_token",
+            "value": "",
+            "type": "path"
+          }
+        ],
+        "body": {
+          "type": "form-urlencoded",
+          "data": [
+            {
+              "name": "api_key",
+              "value": ""
+            },
+            {
+              "name": "start_url",
+              "value": ""
+            },
+            {
+              "name": "start_template",
+              "value": ""
+            },
+            {
+              "name": "start_value_override",
+              "value": ""
+            },
+            {
+              "name": "send_email",
+              "value": ""
+            }
+          ]
+        }
+      },
+      "docs": "Starts a new run for a project, optionally with custom start URL, value overrides, or webhook."
+    },
+    {
+      "info": {
+        "name": "Get data for the last ready run",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://www.parsehub.com/api/v2/projects/:project_token/last_ready_run/data",
+        "params": [
+          {
+            "name": "project_token",
+            "value": "",
+            "type": "path"
+          },
+          {
+            "name": "api_key",
+            "value": "",
+            "type": "query"
+          },
+          {
+            "name": "format",
+            "value": "",
+            "type": "query"
+          }
+        ]
+      },
+      "docs": "Returns the data extracted by the most recent ready run of a project."
+    },
+    {
+      "info": {
+        "name": "Get a run",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://www.parsehub.com/api/v2/runs/:run_token",
+        "params": [
+          {
+            "name": "run_token",
+            "value": "",
+            "type": "path"
+          },
+          {
+            "name": "api_key",
+            "value": "",
+            "type": "query"
+          }
+        ]
+      },
+      "docs": "Get a run"
+    },
+    {
+      "info": {
+        "name": "Delete a run",
+        "type": "http"
+      },
+      "http": {
+        "method": "DELETE",
+        "url": "https://www.parsehub.com/api/v2/runs/:run_token",
+        "params": [
+          {
+            "name": "run_token",
+            "value": "",
+            "type": "path"
+          },
+          {
+            "name": "api_key",
+            "value": "",
+            "type": "query"
+          }
+        ]
+      },
+      "docs": "Deletes a run and its associated data."
+    },
+    {
+      "info": {
+        "name": "Get run data",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://www.parsehub.com/api/v2/runs/:run_token/data",
+        "params": [
+          {
+            "name": "run_token",
+            "value": "",
+            "type": "path"
+          },
+          {
+            "name": "api_key",
+            "value": "",
+            "type": "query"
+          },
+          {
+            "name": "format",
+            "value": "",
+            "type": "query"
+          }
+        ]
+      },
+      "docs": "Returns data extracted by a specific run, in JSON or CSV."
+    },
+    {
+      "info": {
+        "name": "Cancel a run",
+        "type": "http"
+      },
+      "http": {
+        "method": "POST",
+        "url": "https://www.parsehub.com/api/v2/runs/:run_token/cancel",
+        "params": [
+          {
+            "name": "run_token",
+            "value": "",
+            "type": "path"
+          }
+        ],
+        "body": {
+          "type": "form-urlencoded",
+          "data": [
+            {
+              "name": "api_key",
+              "value": ""
+            }
+          ]
+        }
+      },
+      "docs": "Cancel a run"
+    }
+  ],
+  "bundled": true
+}
