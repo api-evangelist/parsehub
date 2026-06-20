@@ -4,7 +4,7 @@ description: >-
   ParseHub is a visual web scraping tool that turns any website into an API with a point-and-click interface for data
   extraction.
 type: Index
-image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
 tags:
   - Data Extraction
   - Scraping
