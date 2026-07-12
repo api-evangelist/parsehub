@@ -35,6 +35,12 @@ apis:
       - type: OpenAPI
         url: https://raw.githubusercontent.com/api-evangelist/parsehub/refs/heads/main/openapi/parsehub-openapi.yml
 common:
+  - type: DomainSecurity
+    url: security/parsehub-domain-security.yml
+  - type: Authentication
+    url: authentication/parsehub-authentication.yml
+  - url: https://www.parsehub.com/blog/feed/
+    type: Blog
   - type: LinkedIn
     url: https://www.linkedin.com/company/parsehub
   - type: Website
