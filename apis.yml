@@ -35,6 +35,8 @@ apis:
       - type: OpenAPI
         url: https://raw.githubusercontent.com/api-evangelist/parsehub/refs/heads/main/openapi/parsehub-openapi.yml
 common:
+  - type: AgenticAccess
+    url: agentic-access/parsehub-agentic-access.yml
   - type: DomainSecurity
     url: security/parsehub-domain-security.yml
   - type: Authentication
