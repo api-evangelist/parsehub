@@ -1,0 +1,16 @@
+{
+  "provider": "parsehub",
+  "sources": [
+    "parsehub-projects-api-openapi.yml",
+    "parsehub-runs-api-openapi.yml"
+  ],
+  "outputs": [
+    "parsehub-projects-api-openapi.yml",
+    "parsehub-runs-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}

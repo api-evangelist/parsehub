@@ -1,0 +1,299 @@
+openapi: 3.0.3
+info:
+  title: ParseHub API
+  description: >-
+    ParseHub is a visual web scraping tool. The v2 API allows you to start
+    runs, check run status, retrieve scraped data, and manage projects and runs.
+  version: '2.0'
+  contact:
+    name: ParseHub Support
+    url: https://www.parsehub.com/docs/ref/api/v2/
+servers:
+  - url: https://www.parsehub.com/api/v2
+    description: ParseHub API v2
+security:
+  - apiKey: []
+paths:
+  /projects:
+    get:
+      summary: List projects
+      description: Returns a paginated list of projects in the user account.
+      operationId: listProjects
+      parameters:
+        - name: api_key
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: offset
+          in: query
+          schema:
+            type: integer
+            default: 0
+        - name: limit
+          in: query
+          schema:
+            type: integer
+            default: 20
+            maximum: 20
+        - name: include_options
+          in: query
+          schema:
+            type: integer
+            enum: [0, 1]
+      responses:
+        '200':
+          description: Project list
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  projects:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Project'
+                  total_projects:
+                    type: integer
+  /projects/{project_token}:
+    get:
+      summary: Get a project
+      operationId: getProject
+      parameters:
+        - name: project_token
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: api_key
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: offset
+          in: query
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Project details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Project'
+  /projects/{project_token}/run:
+    post:
+      summary: Start a run
+      description: Starts a new run for a project, optionally with custom start URL, value overrides, or webhook.
+      operationId: startRun
+      parameters:
+        - name: project_token
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              required: [api_key]
+              properties:
+                api_key:
+                  type: string
+                start_url:
+                  type: string
+                start_template:
+                  type: string
+                start_value_override:
+                  type: string
+                send_email:
+                  type: integer
+                  enum: [0, 1]
+      responses:
+        '200':
+          description: Run object created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Run'
+  /projects/{project_token}/last_ready_run/data:
+    get:
+      summary: Get data for the last ready run
+      description: Returns the data extracted by the most recent ready run of a project.
+      operationId: getLastReadyRunData
+      parameters:
+        - name: project_token
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: api_key
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: format
+          in: query
+          schema:
+            type: string
+            enum: [json, csv]
+            default: json
+      responses:
+        '200':
+          description: Run data
+          content:
+            application/json:
+              schema:
+                type: object
+            text/csv:
+              schema:
+                type: string
+  /runs/{run_token}:
+    get:
+      summary: Get a run
+      operationId: getRun
+      parameters:
+        - name: run_token
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: api_key
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Run details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Run'
+    delete:
+      summary: Delete a run
+      description: Deletes a run and its associated data.
+      operationId: deleteRun
+      parameters:
+        - name: run_token
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: api_key
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Run deleted
+  /runs/{run_token}/data:
+    get:
+      summary: Get run data
+      description: Returns data extracted by a specific run, in JSON or CSV.
+      operationId: getRunData
+      parameters:
+        - name: run_token
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: api_key
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: format
+          in: query
+          schema:
+            type: string
+            enum: [json, csv]
+            default: json
+      responses:
+        '200':
+          description: Run data
+          content:
+            application/json:
+              schema:
+                type: object
+            text/csv:
+              schema:
+                type: string
+  /runs/{run_token}/cancel:
+    post:
+      summary: Cancel a run
+      operationId: cancelRun
+      parameters:
+        - name: run_token
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              required: [api_key]
+              properties:
+                api_key:
+                  type: string
+      responses:
+        '200':
+          description: Run cancelled
+components:
+  securitySchemes:
+    apiKey:
+      type: apiKey
+      in: query
+      name: api_key
+  schemas:
+    Project:
+      type: object
+      properties:
+        token:
+          type: string
+        title:
+          type: string
+        templates_json:
+          type: string
+        main_template:
+          type: string
+        main_site:
+          type: string
+        options_json:
+          type: string
+        last_run:
+          $ref: '#/components/schemas/Run'
+        last_ready_run:
+          $ref: '#/components/schemas/Run'
+    Run:
+      type: object
+      properties:
+        project_token:
+          type: string
+        run_token:
+          type: string
+        status:
+          type: string
+          enum: [initialized, queued, running, complete, cancelled, error]
+        data_ready:
+          type: string
+        start_time:
+          type: string
+        end_time:
+          type: string
+        pages:
+          type: integer
+        md5sum:
+          type: string
+        start_url:
+          type: string
+        start_template:
+          type: string
+        start_value_override:
+          type: object
