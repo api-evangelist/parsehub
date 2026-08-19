@@ -1,0 +1,552 @@
+{
+  "item": [
+    {
+      "id": "dfea4cc6-068b-437b-9e5e-3d8bbe3a1af9",
+      "name": "Projects",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "875ae8a0-df7c-42b7-ae1a-b3b1524a45b0",
+          "name": "List projects",
+          "request": {
+            "name": "List projects",
+            "description": {
+              "content": "Returns a paginated list of projects in the user account.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "projects"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "api_key",
+                  "value": "<string>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "0"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "20"
+                },
+                {
+                  "disabled": false,
+                  "key": "include_options",
+                  "value": "<integer>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "10d512fd-415f-493e-a869-036efec58e1c",
+              "name": "Project list",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    },
+                    {
+                      "key": "include_options",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"projects\": [\n    {\n      \"token\": \"string\",\n      \"title\": \"string\",\n      \"templates_json\": \"string\",\n      \"main_template\": \"string\",\n      \"main_site\": \"string\",\n      \"options_json\": \"string\",\n      \"last_run\": {\n        \"project_token\": \"string\",\n        \"run_token\": \"string\",\n        \"status\": \"error\",\n        \"data_ready\": \"string\",\n        \"start_time\": \"string\",\n        \"end_time\": \"string\",\n        \"pages\": 4452,\n        \"md5sum\": \"string\",\n        \"start_url\": \"string\",\n        \"start_template\": \"string\",\n        \"start_value_override\": {}\n      },\n      \"last_ready_run\": {\n        \"project_token\": \"string\",\n        \"run_token\": \"string\",\n        \"status\": \"running\",\n        \"data_ready\": \"string\",\n        \"start_time\": \"string\",\n        \"end_time\": \"string\",\n        \"pages\": 3075,\n        \"md5sum\": \"string\",\n        \"start_url\": \"string\",\n        \"start_template\": \"string\",\n        \"start_value_override\": {}\n      }\n    },\n    {\n      \"token\": \"string\",\n      \"title\": \"string\",\n      \"templates_json\": \"string\",\n      \"main_template\": \"string\",\n      \"main_site\": \"string\",\n      \"options_json\": \"string\",\n      \"last_run\": {\n        \"project_token\": \"string\",\n        \"run_token\": \"string\",\n        \"status\": \"queued\",\n        \"data_ready\": \"string\",\n        \"start_time\": \"string\",\n        \"end_time\": \"string\",\n        \"pages\": 340,\n        \"md5sum\": \"string\",\n        \"start_url\": \"string\",\n        \"start_template\": \"string\",\n        \"start_value_override\": {}\n      },\n      \"last_ready_run\": {\n        \"project_token\": \"string\",\n        \"run_token\": \"string\",\n        \"status\": \"cancelled\",\n        \"data_ready\": \"string\",\n        \"start_time\": \"string\",\n        \"end_time\": \"string\",\n        \"pages\": 5548,\n        \"md5sum\": \"string\",\n        \"start_url\": \"string\",\n        \"start_template\": \"string\",\n        \"start_value_override\": {}\n      }\n    }\n  ],\n  \"total_projects\": 7541\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a8989657-9be1-44af-9ac7-1ea8350a86c4",
+          "name": "Get a project",
+          "request": {
+            "name": "Get a project",
+            "description": {},
+            "url": {
+              "path": [
+                "projects",
+                ":project_token"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "api_key",
+                  "value": "<string>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "<integer>"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "project_token",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "572b5691-e1bb-40af-9222-eeae0e2a56e3",
+              "name": "Project details",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":project_token"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project_token",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"token\": \"string\",\n  \"title\": \"string\",\n  \"templates_json\": \"string\",\n  \"main_template\": \"string\",\n  \"main_site\": \"string\",\n  \"options_json\": \"string\",\n  \"last_run\": {\n    \"project_token\": \"string\",\n    \"run_token\": \"string\",\n    \"status\": \"running\",\n    \"data_ready\": \"string\",\n    \"start_time\": \"string\",\n    \"end_time\": \"string\",\n    \"pages\": 6373,\n    \"md5sum\": \"string\",\n    \"start_url\": \"string\",\n    \"start_template\": \"string\",\n    \"start_value_override\": {}\n  },\n  \"last_ready_run\": {\n    \"project_token\": \"string\",\n    \"run_token\": \"string\",\n    \"status\": \"error\",\n    \"data_ready\": \"string\",\n    \"start_time\": \"string\",\n    \"end_time\": \"string\",\n    \"pages\": 1875,\n    \"md5sum\": \"string\",\n    \"start_url\": \"string\",\n    \"start_template\": \"string\",\n    \"start_value_override\": {}\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "424b037a-189f-4e52-95d9-5f64ad0606f6",
+          "name": "Start a run",
+          "request": {
+            "name": "Start a run",
+            "description": {
+              "content": "Starts a new run for a project, optionally with custom start URL, value overrides, or webhook.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "projects",
+                ":project_token",
+                "run"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "project_token",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "disabled": false,
+                  "key": "api_key",
+                  "value": "<string>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "start_url",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "start_template",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "start_value_override",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "send_email",
+                  "value": "<integer>"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "3037df28-9821-4e9e-a157-2009eb9b74c1",
+              "name": "Run object created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":project_token",
+                    "run"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project_token",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) ",
+                        "type": "text/plain"
+                      },
+                      "key": "api_key",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "start_url",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "start_template",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "start_value_override",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "send_email",
+                      "value": "<integer>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"project_token\": \"string\",\n  \"run_token\": \"string\",\n  \"status\": \"cancelled\",\n  \"data_ready\": \"string\",\n  \"start_time\": \"string\",\n  \"end_time\": \"string\",\n  \"pages\": 2756,\n  \"md5sum\": \"string\",\n  \"start_url\": \"string\",\n  \"start_template\": \"string\",\n  \"start_value_override\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "237e3539-990e-4ec4-8d9c-8204d763e237",
+          "name": "Get data for the last ready run",
+          "request": {
+            "name": "Get data for the last ready run",
+            "description": {
+              "content": "Returns the data extracted by the most recent ready run of a project.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "projects",
+                ":project_token",
+                "last_ready_run",
+                "data"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "api_key",
+                  "value": "<string>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "format",
+                  "value": "json"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "project_token",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "3364e5c6-f9fa-459f-b592-fe00e082853f",
+              "name": "Run data",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":project_token",
+                    "last_ready_run",
+                    "data"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project_token",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://www.parsehub.com/api/v2",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "api_key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "query"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "e22154ed-2c7b-46b4-9eca-2e69dcab16de",
+    "name": "ParseHub Projects API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "ParseHub is a visual web scraping tool. The v2 API allows you to start runs, check run status, retrieve scraped data, and manage projects and runs.\n\nContact Support:\n Name: ParseHub Support",
+      "type": "text/plain"
+    }
+  }
+}

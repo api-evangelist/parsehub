@@ -1,0 +1,127 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "ParseHub Projects Runs API",
+    "version": "2.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "api_key",
+      "value": "{{api_key}}",
+      "placement": "query"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Runs",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get a run",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://www.parsehub.com/api/v2/runs/:run_token",
+            "params": [
+              {
+                "name": "run_token",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "api_key",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Get a run"
+        },
+        {
+          "info": {
+            "name": "Delete a run",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://www.parsehub.com/api/v2/runs/:run_token",
+            "params": [
+              {
+                "name": "run_token",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "api_key",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Deletes a run and its associated data."
+        },
+        {
+          "info": {
+            "name": "Get run data",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://www.parsehub.com/api/v2/runs/:run_token/data",
+            "params": [
+              {
+                "name": "run_token",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "api_key",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "format",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Returns data extracted by a specific run, in JSON or CSV."
+        },
+        {
+          "info": {
+            "name": "Cancel a run",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://www.parsehub.com/api/v2/runs/:run_token/cancel",
+            "params": [
+              {
+                "name": "run_token",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "form-urlencoded",
+              "data": [
+                {
+                  "name": "api_key",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "docs": "Cancel a run"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
