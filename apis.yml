@@ -33,6 +33,8 @@ apis:
   humanURL: https://www.parsehub.com/
   baseURL: https://www.parsehub.com/api/v2
   tags:
+  - Project
+  tags_raw:
   - Projects
   properties:
   - type: OpenAPI
