@@ -1,6 +1,6 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: ParseHub Projects Runs API
+  title: ParseHub Runs API
   description: ParseHub is a visual web scraping tool. The v2 API allows you to start runs, check run status, retrieve scraped data, and manage projects and runs.
   version: '2.0'
   contact:
