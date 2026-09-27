@@ -167,25 +167,6 @@ paths:
       - Projects
 components:
   schemas:
-    Project:
-      type: object
-      properties:
-        token:
-          type: string
-        title:
-          type: string
-        templates_json:
-          type: string
-        main_template:
-          type: string
-        main_site:
-          type: string
-        options_json:
-          type: string
-        last_run:
-          $ref: '#/components/schemas/Run'
-        last_ready_run:
-          $ref: '#/components/schemas/Run'
     Run:
       type: object
       properties:
@@ -218,6 +199,25 @@ components:
           type: string
         start_value_override:
           type: object
+    Project:
+      type: object
+      properties:
+        token:
+          type: string
+        title:
+          type: string
+        templates_json:
+          type: string
+        main_template:
+          type: string
+        main_site:
+          type: string
+        options_json:
+          type: string
+        last_run:
+          $ref: '#/components/schemas/Run'
+        last_ready_run:
+          $ref: '#/components/schemas/Run'
   securitySchemes:
     apiKey:
       type: apiKey
