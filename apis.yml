@@ -32,6 +32,10 @@ accessModel:
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/parsehub.png
 tags:
   - Data Extraction
+  - Web Scraping
+  - Visual Scraping
+tags_raw:
+  - Data Extraction
   - Scraping
   - Visual Scraping
 url: https://raw.githubusercontent.com/api-evangelist/parsehub/refs/heads/main/apis.yml
